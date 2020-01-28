@@ -51,7 +51,7 @@ public class User {
 
 	@Length(min = 10, max = 30)
 	@NotBlank(message = "the identification is required")
-	private String indentification;
+	private String identification;
 
 	@NotBlank(message = "the email is required")
 	@Column(nullable = false, unique = true)
@@ -76,10 +76,9 @@ public class User {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date created;
-//
-//	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JsonManagedReference
-//	private List<UserRole> userRole;
+
+	@Length(max = 150, message = "the img url can't have more than 150 characteres")
+	private String photo;
 
 	@ManyToMany
 	@JoinTable(name = "user_role", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id",
@@ -94,7 +93,6 @@ public class User {
 	public User() {
 		courses = new ArrayList<Course>();
 		roles = new ArrayList<Role>();
-//		userRole = new ArrayList<UserRole>();
 	}
 
 	@PrePersist
@@ -126,12 +124,12 @@ public class User {
 		this.lastname = lastname;
 	}
 
-	public String getIndentification() {
-		return indentification;
+	public String getIdentification() {
+		return identification;
 	}
 
-	public void setIndentification(String indentification) {
-		this.indentification = indentification;
+	public void setIdentification(String identification) {
+		this.identification = identification;
 	}
 
 	public String getEmail() {
@@ -196,6 +194,14 @@ public class User {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 }

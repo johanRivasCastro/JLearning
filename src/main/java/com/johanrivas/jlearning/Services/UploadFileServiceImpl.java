@@ -37,13 +37,17 @@ public class UploadFileServiceImpl implements IUploadFileService {
 	}
 
 	@Override
-	public String copy(MultipartFile file) throws IOException {
+	public String copy(MultipartFile file) {
 		String uniqueFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 		Path rootPath = getPath(uniqueFilename);
 
 		log.info("rootPath: " + rootPath);
 
-		Files.copy(file.getInputStream(), rootPath);
+		try {
+			Files.copy(file.getInputStream(), rootPath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		return uniqueFilename;
 	}

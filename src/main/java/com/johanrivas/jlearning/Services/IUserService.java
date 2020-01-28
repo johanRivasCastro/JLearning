@@ -1,12 +1,12 @@
 package com.johanrivas.jlearning.Services;
 
-import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 import com.johanrivas.jlearning.Entities.User;
 
 public interface IUserService {
 
-	List<User> findAll(Integer pageNo, Integer pageSize, String sortBy);
+	ResponseEntity<?> findAll(Integer pageNo, Integer pageSize, String sortBy, String filterBy);
 
 	User findById(Long id);
 

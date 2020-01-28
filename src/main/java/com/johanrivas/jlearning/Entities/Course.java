@@ -59,7 +59,7 @@ public class Course {
 	private Date created;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", nullable = false)
 	@JsonBackReference
 	private User user;
 

@@ -6,7 +6,7 @@ import com.johanrivas.jlearning.Entities.Course;
 
 public interface ICourseService {
 
-	List<Course> findAll();
+	List<Course> findAll(Integer pageNo, Integer pageSize, String sortBy);
 
 	Course findById(Long id);
 

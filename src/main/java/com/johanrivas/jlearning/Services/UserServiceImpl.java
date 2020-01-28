@@ -1,13 +1,12 @@
 package com.johanrivas.jlearning.Services;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,21 +19,27 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private IUserDao userDao;
-
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private IUploadFileService uploadFileService;
 
 	@Override
-	public List<User> findAll(Integer pageNo, Integer pageSize, String sortBy) {
+	public ResponseEntity<?> findAll(Integer pageNo, Integer pageSize, String sortBy, String filterBy) {
 
 		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 
-		Page<User> pagedResult = userDao.findAll(paging);
+		Page<User> pagedResult = null;
+		if (filterBy.length() < 2) {
+			pagedResult = userDao.findAll(paging);
+		} else {
+			pagedResult = userDao.findByTerm(filterBy, PageRequest.of(pageNo, pageSize, Sort.by(sortBy)));
+		}
 
 		if (pagedResult.hasContent()) {
-			return pagedResult.getContent();
+			return new ResponseEntity<>(pagedResult, HttpStatus.OK);
 		} else {
-			return new ArrayList<User>();
+			return new ResponseEntity<User>(HttpStatus.OK);
 		}
 	}
 
@@ -52,7 +57,8 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void delete(Long id) {
-		userDao.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		User user = userDao.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		uploadFileService.delete(user.getPhoto());
 		userDao.deleteById(id);
 	}
 

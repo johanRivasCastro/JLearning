@@ -16,28 +16,46 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.johanrivas.jlearning.Entities.Course;
 import com.johanrivas.jlearning.Execptions.BindingResultException;
 import com.johanrivas.jlearning.Services.ICourseService;
+import com.johanrivas.jlearning.Services.IUploadFileService;
 
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
 @RequestMapping("/api/v1")
 public class CourseController {
 
 	@Autowired
 	private ICourseService courseService;
+	@Autowired
+	private IUploadFileService uploadFileService;
 
 	@GetMapping("/courses")
-	public List<Course> courses() {
-		return courseService.findAll();
+	public List<Course> courses(@RequestParam(defaultValue = "0") Integer pageNo,
+			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
+		return courseService.findAll(pageNo, pageSize, sortBy);
 	}
 
 	@GetMapping("/courses/{id}")
 	public ResponseEntity<Course> course(@PathVariable("id") Long id) {
 		return new ResponseEntity<Course>(courseService.findById(id), HttpStatus.OK);
+	}
+
+	@PostMapping("/courses/img/{courseId}")
+	public RedirectView uploadImg(@RequestParam(name = "img", required = false) MultipartFile img,
+			@PathVariable("courseId") Long courseId) {
+		Course course = courseService.findById(courseId);
+		uploadFileService.delete(course.getImg());
+		String uniqueFilename = uploadFileService.copy(img);
+		course.setImg(uniqueFilename);
+		courseService.save(course);
+		return new RedirectView("/api/v1/uploads/" + uniqueFilename);
 	}
 
 	@PostMapping("/courses")

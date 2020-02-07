@@ -1,4 +1,5 @@
 package com.johanrivas.jlearning;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,4 +16,10 @@ public class MvcConfig implements WebMvcConfigurer {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
+//	@Override
+//	public void addCorsMappings(CorsRegistry registry) {
+//		// Can just allow `methods` that you need.
+//		registry.addMapping("/**").allowedMethods("GET", "PUT", "DELETE", "OPTIONS", "PATCH", "POST");
+//	}
 }

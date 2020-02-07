@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +36,7 @@ public class UserController {
 	@GetMapping("/users")
 	public ResponseEntity<?> users(@RequestParam(defaultValue = "0") Integer pageNo,
 			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy,
-			@RequestParam(required = false, name = "filterBy") String filterBy) {
+			@RequestParam(required = false, name = "filterBy", defaultValue = "") String filterBy) {
 		return userService.findAll(pageNo, pageSize, sortBy, filterBy);
 	}
 
@@ -71,15 +70,7 @@ public class UserController {
 		if (result.hasErrors()) {
 			throw new BindingResultException(result);
 		}
-		User updated = user;
-		updated.setId(id);
-		return new ResponseEntity<>(userService.save(updated), HttpStatus.OK);
-	}
-
-	@DeleteMapping("/users/{id}")
-	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-		userService.delete(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
 	}
 
 }

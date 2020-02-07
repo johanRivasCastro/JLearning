@@ -1,5 +1,10 @@
 package com.johanrivas.jlearning.Services;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,9 +55,25 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User save(User user) {
-		String encodedPassword = passwordEncoder.encode(user.getPassword());
-		user.setPassword(encodedPassword);
-		return userDao.save(user);
+
+		if (user.getId() == null) {
+			String generatedPassword = generateCommonLangPassword();
+			String encodedPassword = passwordEncoder.encode(generatedPassword);
+			user.setPassword(encodedPassword);
+			return userDao.save(user);
+		}
+
+		User toUpdate = userDao.findById(user.getId()).orElseThrow(() -> new ResourceNotFoundException(user.getId()));
+
+		toUpdate.setName(user.getName());
+		toUpdate.setLastname(user.getLastname());
+		toUpdate.setDirection(user.getDirection());
+		toUpdate.setEnable(user.getEnable());
+		toUpdate.setEmail(user.getEmail());
+		toUpdate.setIdentification(user.getIdentification());
+		toUpdate.setRoles(user.getRoles());
+
+		return userDao.save(toUpdate);
 	}
 
 	@Override
@@ -60,6 +81,21 @@ public class UserServiceImpl implements IUserService {
 		User user = userDao.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 		uploadFileService.delete(user.getPhoto());
 		userDao.deleteById(id);
+	}
+
+	public String generateCommonLangPassword() {
+		String upperCaseLetters = RandomStringUtils.random(2, 65, 90, true, true);
+		String lowerCaseLetters = RandomStringUtils.random(2, 97, 122, true, true);
+		String numbers = RandomStringUtils.randomNumeric(2);
+		String specialChar = RandomStringUtils.random(2, 33, 47, false, false);
+		String totalChars = RandomStringUtils.randomAlphanumeric(2);
+		String combinedChars = upperCaseLetters.concat(lowerCaseLetters).concat(numbers).concat(specialChar)
+				.concat(totalChars);
+		List<Character> pwdChars = combinedChars.chars().mapToObj(c -> (char) c).collect(Collectors.toList());
+		Collections.shuffle(pwdChars);
+		String password = pwdChars.stream().collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+				.toString();
+		return password;
 	}
 
 }

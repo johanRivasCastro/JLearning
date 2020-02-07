@@ -60,7 +60,7 @@ public class User {
 
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@Length(min = 5)
-	@NotBlank(message = "the password is required")
+	// @NotBlank(message = "the password is required")
 	private String password;
 
 	@Length(min = 5)

@@ -54,7 +54,7 @@ public class User {
 	private String identification;
 
 	@NotBlank(message = "the email is required")
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	@Email
 	private String email;
 

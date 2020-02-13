@@ -1,5 +1,3 @@
-INSERT INTO users (name, lastname, email, identification, password, photo, direction) VALUES ('pedro', 'castro',  'cc@gmail.com','99999999','33e32','9f18aab3-5cda-4b7d-a0c5-0559cc72abca_foto 2x2.jpeg','algun lugar del mundo') 
-
 INSERT INTO users (name, lastname, email, identification, password,direction) VALUES ('pedro', 'castro',  'cc@gmail.com','99999999','33e32','algun lugar del mundo') 
 INSERT INTO users (name, lastname, email, identification, password,direction) VALUES ('pedro', 'castro',  'cc@gmail.com','99999999','33e32','algun lugar del mundo') 
 INSERT INTO users (name, lastname, email, identification, password,direction) VALUES ('pedro', 'castro',  'cc@gmail.com','99999999','33e32','algun lugar del mundo') 

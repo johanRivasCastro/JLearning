@@ -21,7 +21,6 @@ import com.johanrivas.jlearning.Entities.Role;
 import com.johanrivas.jlearning.Execptions.BindingResultException;
 import com.johanrivas.jlearning.Services.IRoleService;
 
-@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/v1")
 public class RoleController {

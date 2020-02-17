@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.johanrivas.jlearning.Entities.User;
+import com.johanrivas.jlearning.Services.IUserService;
 import com.johanrivas.jlearning.auth.SimpleGrantedAuthorityMixin;
 
 import io.jsonwebtoken.Claims;
@@ -27,15 +30,23 @@ public class JWTServiceImpl implements JWTService {
 	public static final String TOKEN_PREFIX = "Bearer ";
 	public static final String HEADER_STRING = "Authorization";
 
+	@Autowired
+	private IUserService userService;
+
 	@Override
 	public String create(Authentication auth) throws IOException {
 
-		String username = ((com.johanrivas.jlearning.Entities.User) auth.getPrincipal()).getEmail();
+		String username = ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername();
 
 		Collection<? extends GrantedAuthority> roles = auth.getAuthorities();
 
 		Claims claims = Jwts.claims();
+		User user = userService.findByEmail(username);
+		User tokenUser = new User();
+		tokenUser.setName(user.getName());
+		tokenUser.setLastname(user.getLastname());
 		claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
+		claims.put("user", new ObjectMapper().writeValueAsString(tokenUser));
 
 		String token = Jwts.builder().setClaims(claims).setSubject(username)
 				.signWith(SignatureAlgorithm.HS512, SECRET.getBytes()).setIssuedAt(new Date())

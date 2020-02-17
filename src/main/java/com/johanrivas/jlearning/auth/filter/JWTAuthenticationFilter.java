@@ -24,7 +24,6 @@ import com.johanrivas.jlearning.Entities.User;
 import com.johanrivas.jlearning.auth.service.JWTService;
 import com.johanrivas.jlearning.auth.service.JWTServiceImpl;
 
-@CrossOrigin(origins = { "*" })
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private AuthenticationManager authenticationManager;
@@ -40,6 +39,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
+
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");
+		response.setHeader("Access-Control-Allow-Headers", "*");
 
 		String username = obtainUsername(request);
 		String password = obtainPassword(request);
@@ -86,9 +89,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		Map<String, Object> body = new HashMap<String, Object>();
 		body.put("token", token);
-		body.put("user", (User) authResult.getPrincipal());
-		body.put("mensaje",
-				String.format("Hola %s, you have logged in!", ((User) authResult.getPrincipal()).getEmail()));
+		// body.put("user", (org.springframework.security.core.userdetails.User)
+		// authResult.getPrincipal());
+		body.put("mensaje", String.format("Hola %s, you have logged in!",
+				((org.springframework.security.core.userdetails.User) authResult.getPrincipal()).getUsername()));
 
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 		response.setStatus(200);
@@ -100,7 +104,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			AuthenticationException failed) throws IOException, ServletException {
 
 		Map<String, Object> body = new HashMap<String, Object>();
-		body.put("mensaje", "Error de autenticación: username o password incorrecto!");
+		body.put("mensaje", "Error : username o password wrong!");
 		body.put("error", failed.getMessage());
 
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));

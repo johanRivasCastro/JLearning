@@ -10,12 +10,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.johanrivas.jlearning.Dao.IUserDao;
 import com.johanrivas.jlearning.Entities.Role;
 import com.johanrivas.jlearning.Entities.User;
 
+@Service
 public class JPAUserDetailsService implements UserDetailsService {
 
 	@Autowired

@@ -15,7 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -24,7 +23,6 @@ import com.johanrivas.jlearning.Entities.User;
 import com.johanrivas.jlearning.auth.service.JWTService;
 import com.johanrivas.jlearning.auth.service.JWTServiceImpl;
 
-@CrossOrigin(origins = { "*" })
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	private AuthenticationManager authenticationManager;
@@ -68,6 +66,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				e.printStackTrace();
 			}
 		}
+
+		logger.info("******************");
 
 		username = username.trim();
 

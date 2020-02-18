@@ -99,7 +99,6 @@ public class User {
 	@PrePersist
 	public void prePersist() {
 		created = new Date();
-		enable = false;
 	}
 
 	public Long getId() {

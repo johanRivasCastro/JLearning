@@ -23,7 +23,6 @@ import com.johanrivas.jlearning.Execptions.BindingResultException;
 import com.johanrivas.jlearning.Services.IUploadFileService;
 import com.johanrivas.jlearning.Services.IUserService;
 
-@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {

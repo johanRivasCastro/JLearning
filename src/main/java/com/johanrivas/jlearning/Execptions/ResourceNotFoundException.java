@@ -5,4 +5,8 @@ public class ResourceNotFoundException extends RuntimeException {
 		super("the requested resource with the id " + id + " Does not exist");
 	}
 
+	public ResourceNotFoundException(String email) {
+		super("the requested resource with the email " + email + " Does not exist");
+	}
+
 }

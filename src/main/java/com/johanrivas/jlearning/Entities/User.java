@@ -66,6 +66,7 @@ public class User {
 	@Length(min = 5)
 	private String direction;
 
+	@Column(columnDefinition = "boolean default false")
 	private Boolean enable;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -98,6 +99,7 @@ public class User {
 	@PrePersist
 	public void prePersist() {
 		created = new Date();
+		enable = false;
 	}
 
 	public Long getId() {

@@ -27,6 +27,8 @@ public class Role {
 	@Column(nullable = false, unique = true)
 	private String authority;
 
+	private String description;
+
 	@ManyToMany(mappedBy = "roles")
 	private List<User> users;
 
@@ -44,6 +46,14 @@ public class Role {
 
 	public void setAuthority(String authority) {
 		this.authority = authority;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Role() {

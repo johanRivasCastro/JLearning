@@ -28,8 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 

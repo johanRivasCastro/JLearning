@@ -45,11 +45,11 @@ public class UserController {
 	}
 
 	@PostMapping("/users")
-	public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
+	public ResponseEntity<User> create(@Valid @RequestBody User user, BindingResult result) {
 		if (result.hasErrors()) {
 			throw new BindingResultException(result);
 		}
-		return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+		return new ResponseEntity<User>(userService.save(user), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/users/photo/{userId}")

@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.johanrivas.jlearning.Dao.IUserDao;
+import com.johanrivas.jlearning.Entities.Role;
 import com.johanrivas.jlearning.Entities.User;
 import com.johanrivas.jlearning.Execptions.ResourceNotFoundException;
 
@@ -28,6 +29,8 @@ public class UserServiceImpl implements IUserService {
 	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
 	private IUploadFileService uploadFileService;
+	@Autowired
+	private EmailSender emailSender;
 
 	@Override
 	public ResponseEntity<?> findAll(Integer pageNo, Integer pageSize, String sortBy, String filterBy) {
@@ -60,7 +63,10 @@ public class UserServiceImpl implements IUserService {
 			String generatedPassword = generateCommonLangPassword();
 			String encodedPassword = passwordEncoder.encode(generatedPassword);
 			user.setPassword(encodedPassword);
-			return userDao.save(user);
+			// emailSender.sendEmail();
+			User newUser = userDao.save(user);
+
+			return findById(newUser.getId());
 		}
 
 		User toUpdate = userDao.findById(user.getId()).orElseThrow(() -> new ResourceNotFoundException(user.getId()));

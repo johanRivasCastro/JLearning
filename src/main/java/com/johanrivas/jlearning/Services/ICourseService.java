@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.johanrivas.jlearning.Entities.Course;
 
+import org.springframework.http.ResponseEntity;
+
 public interface ICourseService {
 
-	List<Course> findAll(Integer pageNo, Integer pageSize, String sortBy);
+	ResponseEntity<?> findAll(Integer pageNo, Integer pageSize, String sortBy, String filterBy);
 
 	Course findById(Long id);
 

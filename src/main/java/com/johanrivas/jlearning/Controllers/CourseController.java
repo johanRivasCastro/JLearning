@@ -37,9 +37,10 @@ public class CourseController {
 	private IUploadFileService uploadFileService;
 
 	@GetMapping("/courses")
-	public List<Course> courses(@RequestParam(defaultValue = "0") Integer pageNo,
-			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
-		return courseService.findAll(pageNo, pageSize, sortBy);
+	public ResponseEntity<?> courses(@RequestParam(defaultValue = "0") Integer pageNo,
+			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy,
+			String filterBy) {
+		return courseService.findAll(pageNo, pageSize, sortBy, filterBy);
 	}
 
 	@GetMapping("/courses/{id}")

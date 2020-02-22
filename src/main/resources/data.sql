@@ -1,7 +1,7 @@
 INSERT INTO users
     (name, lastname, email, identification, password,direction)
 VALUES
-    ('johan', 'castro', 'j@gmail.com', '9999999932323', '$2a$10$8tZyTXhCYClAt8wG2MNoYOLKR3o16UqHEujKhfT4t05COfyPQwUx6', 'algun lugar del mundo');
+    ('johan', 'castro', 'j@gmail.com', '9999999932323', '$2a$10$URCfZO.cUuKYCWuIsrjexulu6oWgnidfpiJrMjHswcGGz4/UfyIHi', 'algun lugar del mundo');
 INSERT INTO users
     (name, lastname, email, identification, password,direction)
 VALUES

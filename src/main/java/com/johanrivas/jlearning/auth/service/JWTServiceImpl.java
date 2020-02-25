@@ -45,6 +45,7 @@ public class JWTServiceImpl implements JWTService {
 		User tokenUser = new User();
 		tokenUser.setName(user.getName());
 		tokenUser.setLastname(user.getLastname());
+		tokenUser.setId(user.getId());
 		claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
 		claims.put("user", new ObjectMapper().writeValueAsString(tokenUser));
 

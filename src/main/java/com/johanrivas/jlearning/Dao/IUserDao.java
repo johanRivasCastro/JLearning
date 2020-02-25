@@ -13,4 +13,8 @@ public interface IUserDao extends PagingAndSortingRepository<User, Long> {
 	Page<User> findByTerm(String term, PageRequest pageRequest);
 
 	User findByEmail(String email);
+
+	@Query("select u from User u join fetch u.courses where u.id = 1")
+	User findUniqueUser(Long id);
+
 }

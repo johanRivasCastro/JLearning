@@ -29,8 +29,8 @@ public class UserServiceImpl implements IUserService {
 	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
 	private IUploadFileService uploadFileService;
-	@Autowired
-	private EmailSender emailSender;
+	// @Autowired
+	// private EmailSender emailSender;
 
 	@Override
 	public ResponseEntity<?> findAll(Integer pageNo, Integer pageSize, String sortBy, String filterBy) {
@@ -53,7 +53,8 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User findById(Long id) {
-		return userDao.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+		return userDao.findUniqueUser(id);
+
 	}
 
 	@Override

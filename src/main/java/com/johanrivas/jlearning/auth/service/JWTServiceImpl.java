@@ -14,7 +14,7 @@ import org.springframework.util.Base64Utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.johanrivas.jlearning.Entities.User;
-import com.johanrivas.jlearning.Services.IUserService;
+import com.johanrivas.jlearning.Services.interfaces.UserService;
 import com.johanrivas.jlearning.auth.SimpleGrantedAuthorityMixin;
 
 import io.jsonwebtoken.Claims;
@@ -31,7 +31,7 @@ public class JWTServiceImpl implements JWTService {
 	public static final String HEADER_STRING = "Authorization";
 
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 
 	@Override
 	public String create(Authentication auth) throws IOException {

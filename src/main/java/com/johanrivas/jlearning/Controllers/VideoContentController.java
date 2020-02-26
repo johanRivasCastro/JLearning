@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.johanrivas.jlearning.Entities.VideoContent;
 import com.johanrivas.jlearning.Execptions.BindingResultException;
-import com.johanrivas.jlearning.Services.IVideoContentService;
+import com.johanrivas.jlearning.Services.interfaces.VideoContentService;
 
 @RestController
 @RequestMapping("/api/v1")
 public class VideoContentController {
 
 	@Autowired
-	private IVideoContentService videoService;
+	private VideoContentService videoService;
 
 	@PostMapping("/videoContents")
 	public ResponseEntity<?> save(@Valid @RequestBody VideoContent videoContent, BindingResult result) {

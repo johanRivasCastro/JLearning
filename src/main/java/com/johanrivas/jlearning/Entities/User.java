@@ -75,6 +75,7 @@ public class User implements Serializable {
 	private Boolean enable;
 
 	// @JsonProperty(access = Access.WRITE_ONLY)
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private List<Course> courses;

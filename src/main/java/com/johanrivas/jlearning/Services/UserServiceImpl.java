@@ -1,5 +1,6 @@
 package com.johanrivas.jlearning.Services;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,20 +16,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.johanrivas.jlearning.Dao.IUserDao;
+import com.johanrivas.jlearning.Dao.UserDao;
 import com.johanrivas.jlearning.Entities.Role;
 import com.johanrivas.jlearning.Entities.User;
 import com.johanrivas.jlearning.Execptions.ResourceNotFoundException;
+import com.johanrivas.jlearning.Services.interfaces.UploadFileService;
+import com.johanrivas.jlearning.Services.interfaces.UserService;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private IUserDao userDao;
+	private UserDao userDao;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	@Autowired
-	private IUploadFileService uploadFileService;
+	private UploadFileService uploadFileService;
 	// @Autowired
 	// private EmailSender emailSender;
 
@@ -47,13 +50,13 @@ public class UserServiceImpl implements IUserService {
 		if (pagedResult.hasContent()) {
 			return new ResponseEntity<>(pagedResult, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<User>(HttpStatus.OK);
+			return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
 		}
 	}
 
 	@Override
 	public User findById(Long id) {
-		return userDao.findUniqueUser(id);
+		return userDao.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
 
 	}
 

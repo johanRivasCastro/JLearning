@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.johanrivas.jlearning.Entities.Role;
 
-public interface IRoleDao extends CrudRepository<Role, Long> {
+public interface RoleDao extends CrudRepository<Role, Long> {
 
 }

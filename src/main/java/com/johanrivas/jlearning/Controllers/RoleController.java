@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.johanrivas.jlearning.Entities.Role;
 import com.johanrivas.jlearning.Execptions.BindingResultException;
-import com.johanrivas.jlearning.Services.IRoleService;
+import com.johanrivas.jlearning.Services.interfaces.RoleService;
 
 @RestController
 @RequestMapping("/api/v1")
 public class RoleController {
 
 	@Autowired
-	private IRoleService roleService;
+	private RoleService roleService;
 
 	@GetMapping("/roles")
 	public List<Role> roles() {
@@ -44,6 +44,6 @@ public class RoleController {
 	@DeleteMapping("/roles/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		roleService.delete(id);
-		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 }

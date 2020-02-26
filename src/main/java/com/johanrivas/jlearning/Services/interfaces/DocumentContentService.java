@@ -1,8 +1,8 @@
-package com.johanrivas.jlearning.Services;
+package com.johanrivas.jlearning.Services.interfaces;
 
 import com.johanrivas.jlearning.Entities.DocumentContent;
 
-public interface IDocumentContentService {
+public interface DocumentContentService {
 
 	DocumentContent findById(Long id);
 

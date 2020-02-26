@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.johanrivas.jlearning.Services.IUploadFileService;
+import com.johanrivas.jlearning.Services.interfaces.UploadFileService;
 
 @RestController
 @RequestMapping("/api/v1")
 public class UploadsController {
 
 	@Autowired
-	private IUploadFileService uploadFileService;
+	private UploadFileService uploadFileService;
 
 	@GetMapping(value = "/uploads/{filename:.+}")
 	public ResponseEntity<Resource> document(@PathVariable String filename, HttpServletRequest request) {

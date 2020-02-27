@@ -1,8 +1,8 @@
-package com.johanrivas.jlearning.Services;
+package com.johanrivas.jlearning.Services.interfaces;
 
 import com.johanrivas.jlearning.Entities.VideoContent;
 
-public interface IVideoContentService {
+public interface VideoContentService {
 	VideoContent findById(Long id);
 
 	VideoContent save(VideoContent videoContent);

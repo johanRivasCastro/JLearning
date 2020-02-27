@@ -20,17 +20,17 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.johanrivas.jlearning.Entities.User;
 import com.johanrivas.jlearning.Execptions.BindingResultException;
-import com.johanrivas.jlearning.Services.IUploadFileService;
-import com.johanrivas.jlearning.Services.IUserService;
+import com.johanrivas.jlearning.Services.interfaces.UploadFileService;
+import com.johanrivas.jlearning.Services.interfaces.UserService;
 
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
 
 	@Autowired
-	private IUserService userService;
+	private UserService userService;
 	@Autowired
-	private IUploadFileService uploadFileService;
+	private UploadFileService uploadFileService;
 
 	@GetMapping("/users")
 	public ResponseEntity<?> users(@RequestParam(defaultValue = "0") Integer pageNo,

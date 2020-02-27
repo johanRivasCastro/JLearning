@@ -3,15 +3,16 @@ package com.johanrivas.jlearning.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.johanrivas.jlearning.Dao.IVideoContentDao;
+import com.johanrivas.jlearning.Dao.VideoContentDao;
 import com.johanrivas.jlearning.Entities.VideoContent;
 import com.johanrivas.jlearning.Execptions.ResourceNotFoundException;
+import com.johanrivas.jlearning.Services.interfaces.VideoContentService;
 
 @Service
-public class VideoContentServiceImpl implements IVideoContentService {
+public class VideoContentServiceImpl implements VideoContentService {
 
 	@Autowired
-	private IVideoContentDao videoContentDao;
+	private VideoContentDao videoContentDao;
 
 	@Override
 	public VideoContent findById(Long id) {

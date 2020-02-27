@@ -1,10 +1,10 @@
-package com.johanrivas.jlearning.Services;
+package com.johanrivas.jlearning.Services.interfaces;
 
 import java.util.List;
 
 import com.johanrivas.jlearning.Entities.Role;
 
-public interface IRoleService {
+public interface RoleService {
 
 	List<Role> findAll();
 

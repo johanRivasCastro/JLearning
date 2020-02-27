@@ -5,15 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.johanrivas.jlearning.Dao.ICourseContentDao;
+import com.johanrivas.jlearning.Dao.CourseContentDao;
 import com.johanrivas.jlearning.Entities.CourseContent;
 import com.johanrivas.jlearning.Execptions.ResourceNotFoundException;
+import com.johanrivas.jlearning.Services.interfaces.CourseContentService;
 
 @Service
-public class CourseContentServiceImpl implements ICourseContentService {
+public class CourseContentServiceImpl implements CourseContentService {
 
 	@Autowired
-	private ICourseContentDao courseContentDao;
+	private CourseContentDao courseContentDao;
 
 	@Override
 	public CourseContent save(CourseContent content) {

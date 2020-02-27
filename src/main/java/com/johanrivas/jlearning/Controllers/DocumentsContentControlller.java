@@ -1,5 +1,11 @@
 package com.johanrivas.jlearning.Controllers;
 
+import com.johanrivas.jlearning.Entities.CourseContent;
+import com.johanrivas.jlearning.Entities.DocumentContent;
+import com.johanrivas.jlearning.Services.interfaces.CourseContentService;
+import com.johanrivas.jlearning.Services.interfaces.DocumentContentService;
+import com.johanrivas.jlearning.Services.interfaces.UploadFileService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,22 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.johanrivas.jlearning.Entities.CourseContent;
-import com.johanrivas.jlearning.Entities.DocumentContent;
-import com.johanrivas.jlearning.Services.ICourseContentService;
-import com.johanrivas.jlearning.Services.IDocumentContentService;
-import com.johanrivas.jlearning.Services.IUploadFileService;
-
 @RestController
 @RequestMapping("/api/v1")
 public class DocumentsContentControlller {
 
 	@Autowired
-	private IDocumentContentService documentContentService;
+	private DocumentContentService documentContentService;
 	@Autowired
-	private IUploadFileService uploadFileService;
+	private UploadFileService uploadFileService;
 	@Autowired
-	private ICourseContentService courseContentService;
+	private CourseContentService courseContentService;
 
 	@PostMapping("/documentContents")
 	public ResponseEntity<?> save(@RequestParam(name = "file", required = true) MultipartFile document,

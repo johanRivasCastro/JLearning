@@ -13,17 +13,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.johanrivas.jlearning.Dao.ICourseDao;
+import com.johanrivas.jlearning.Dao.CourseDao;
 import com.johanrivas.jlearning.Entities.Course;
 import com.johanrivas.jlearning.Execptions.ResourceNotFoundException;
+import com.johanrivas.jlearning.Services.interfaces.CourseService;
+import com.johanrivas.jlearning.Services.interfaces.UploadFileService;
 
 @Service
-public class CourseServiceImpl implements ICourseService {
+public class CourseServiceImpl implements CourseService {
 
 	@Autowired
-	private ICourseDao courseDao;
+	private CourseDao courseDao;
 	@Autowired
-	private IUploadFileService uploadFileService;
+	private UploadFileService uploadFileService;
 
 	@Transactional(readOnly = true)
 	@Override
@@ -36,12 +38,7 @@ public class CourseServiceImpl implements ICourseService {
 		} else {
 			pagedResult = courseDao.findByTerm(filterBy, PageRequest.of(pageNo, pageSize, Sort.by(sortBy)));
 		}
-
-		if (pagedResult.hasContent()) {
-			return new ResponseEntity<>(pagedResult, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Course>(HttpStatus.OK);
-		}
+		return new ResponseEntity<>(pagedResult, HttpStatus.OK);
 	}
 
 	@Transactional(readOnly = true)

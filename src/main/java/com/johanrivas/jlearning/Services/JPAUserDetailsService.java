@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.johanrivas.jlearning.Dao.IUserDao;
+import com.johanrivas.jlearning.Dao.UserDao;
 import com.johanrivas.jlearning.Entities.Role;
 import com.johanrivas.jlearning.Entities.User;
 
@@ -21,7 +21,7 @@ import com.johanrivas.jlearning.Entities.User;
 public class JPAUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private IUserDao userDao;
+	private UserDao userDao;
 
 	private org.slf4j.Logger logger = LoggerFactory.getLogger(JPAUserDetailsService.class);
 

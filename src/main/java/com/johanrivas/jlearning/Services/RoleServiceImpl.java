@@ -5,15 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.johanrivas.jlearning.Dao.IRoleDao;
+import com.johanrivas.jlearning.Dao.RoleDao;
 import com.johanrivas.jlearning.Entities.Role;
 import com.johanrivas.jlearning.Execptions.ResourceNotFoundException;
+import com.johanrivas.jlearning.Services.interfaces.RoleService;
 
 @Service
-public class RoleServiceImpl implements IRoleService {
+public class RoleServiceImpl implements RoleService {
 
 	@Autowired
-	private IRoleDao roleDao;
+	private RoleDao roleDao;
 
 	@Override
 	public Role save(Role role) {

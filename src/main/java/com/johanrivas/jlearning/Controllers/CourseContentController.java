@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.johanrivas.jlearning.Entities.CourseContent;
 import com.johanrivas.jlearning.Execptions.BindingResultException;
-import com.johanrivas.jlearning.Services.ICourseContentService;
+import com.johanrivas.jlearning.Services.interfaces.CourseContentService;
 
 @RestController
 @RequestMapping("/api/v1")
 public class CourseContentController {
 
 	@Autowired
-	private ICourseContentService courseCountentService;
+	private CourseContentService courseCountentService;
 
 	@GetMapping("/courseContents/{courseId}")
 	public ResponseEntity<?> courseContents(@PathVariable("courseId") Long courseId) {

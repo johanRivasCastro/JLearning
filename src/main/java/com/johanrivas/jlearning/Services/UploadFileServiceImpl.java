@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.johanrivas.jlearning.Services.interfaces.UploadFileService;
+
 @Service
-public class UploadFileServiceImpl implements IUploadFileService {
+public class UploadFileServiceImpl implements UploadFileService {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 

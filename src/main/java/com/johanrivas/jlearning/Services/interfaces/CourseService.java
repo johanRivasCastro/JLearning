@@ -1,4 +1,4 @@
-package com.johanrivas.jlearning.Services;
+package com.johanrivas.jlearning.Services.interfaces;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import com.johanrivas.jlearning.Entities.Course;
 
 import org.springframework.http.ResponseEntity;
 
-public interface ICourseService {
+public interface CourseService {
 
 	ResponseEntity<?> findAll(Integer pageNo, Integer pageSize, String sortBy, String filterBy);
 

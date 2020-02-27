@@ -1,5 +1,6 @@
 package com.johanrivas.jlearning.Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.annotations.Fetch;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,7 +38,9 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,8 +74,9 @@ public class User {
 	@Column(columnDefinition = "boolean default false")
 	private Boolean enable;
 
-	@JsonProperty(access = Access.WRITE_ONLY)
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	// @JsonProperty(access = Access.WRITE_ONLY)
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private List<Course> courses;
 
@@ -83,7 +88,7 @@ public class User {
 	@Length(max = 150, message = "the img url can't have more than 150 characteres")
 	private String photo;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id",
 			"role_id" }) }, joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;

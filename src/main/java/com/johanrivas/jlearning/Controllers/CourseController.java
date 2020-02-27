@@ -23,8 +23,8 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.johanrivas.jlearning.Entities.Course;
 import com.johanrivas.jlearning.Execptions.BindingResultException;
-import com.johanrivas.jlearning.Services.ICourseService;
-import com.johanrivas.jlearning.Services.IUploadFileService;
+import com.johanrivas.jlearning.Services.interfaces.CourseService;
+import com.johanrivas.jlearning.Services.interfaces.UploadFileService;
 
 @CrossOrigin(origins = { "http://localhost:3000" })
 @RestController
@@ -32,14 +32,14 @@ import com.johanrivas.jlearning.Services.IUploadFileService;
 public class CourseController {
 
 	@Autowired
-	private ICourseService courseService;
+	private CourseService courseService;
 	@Autowired
-	private IUploadFileService uploadFileService;
+	private UploadFileService uploadFileService;
 
 	@GetMapping("/courses")
 	public ResponseEntity<?> courses(@RequestParam(defaultValue = "0") Integer pageNo,
 			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy,
-			String filterBy) {
+			@RequestParam(required = false, name = "filterBy", defaultValue = "") String filterBy) {
 		return courseService.findAll(pageNo, pageSize, sortBy, filterBy);
 	}
 

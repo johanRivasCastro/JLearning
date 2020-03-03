@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.johanrivas.jlearning.Dao.CourseDao;
 import com.johanrivas.jlearning.Entities.Course;
 import com.johanrivas.jlearning.Execptions.ResourceNotFoundException;
+import com.johanrivas.jlearning.Execptions.UniqueConstraintViolationException;
 import com.johanrivas.jlearning.Services.interfaces.CourseService;
 import com.johanrivas.jlearning.Services.interfaces.UploadFileService;
 
@@ -49,6 +50,9 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public Course save(Course course) {
+		Course courseByName = courseDao.findByName(course.getName());
+		if (courseByName != null)
+			throw new UniqueConstraintViolationException("there is allready a course with this name");
 		return courseDao.save(course);
 	}
 

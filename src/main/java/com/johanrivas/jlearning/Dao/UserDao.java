@@ -14,6 +14,8 @@ public interface UserDao extends PagingAndSortingRepository<User, Long> {
 
 	User findByEmail(String email);
 
+	User findByIdentification(String identification);
+
 	// @Query("select u from User u join fetch u.courses where u.id = 1")
 	// User findUniqueUser(Long id);
 

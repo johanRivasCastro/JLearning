@@ -17,9 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.johanrivas.jlearning.Dao.UserDao;
-import com.johanrivas.jlearning.Entities.Role;
 import com.johanrivas.jlearning.Entities.User;
 import com.johanrivas.jlearning.Execptions.ResourceNotFoundException;
+import com.johanrivas.jlearning.Execptions.UniqueConstraintViolationException;
 import com.johanrivas.jlearning.Services.interfaces.UploadFileService;
 import com.johanrivas.jlearning.Services.interfaces.UserService;
 
@@ -47,30 +47,35 @@ public class UserServiceImpl implements UserService {
 			pagedResult = userDao.findByTerm(filterBy, PageRequest.of(pageNo, pageSize, Sort.by(sortBy)));
 		}
 
-		if (pagedResult.hasContent()) {
-			return new ResponseEntity<>(pagedResult, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
-		}
+		pagedResult.map(user -> removeUserCourses(user));
+		return new ResponseEntity<>(pagedResult, HttpStatus.OK);
 	}
 
 	@Override
 	public User findById(Long id) {
 		return userDao.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
+	}
 
+	public User removeUserCourses(User user) {
+		user.setCourses(null);
+		return user;
 	}
 
 	@Override
 	public User save(User user) {
 
 		if (user.getId() == null) {
-			String generatedPassword = generateCommonLangPassword();
-			String encodedPassword = passwordEncoder.encode(generatedPassword);
-			user.setPassword(encodedPassword);
+			// String generatedPassword = generateCommonLangPassword();
+			// String encodedPassword = passwordEncoder.encode(generatedPassword);
+			// user.setPassword(encodedPassword);
 			// emailSender.sendEmail();
-			User newUser = userDao.save(user);
-
-			return findById(newUser.getId());
+			User userByEmail = userDao.findByEmail(user.getEmail());
+			if (userByEmail != null)
+				throw new UniqueConstraintViolationException("there is allready a user with this email");
+			User userByIdentification = userDao.findByIdentification(user.getIdentification());
+			if (userByIdentification != null)
+				throw new UniqueConstraintViolationException("there is allready a user with this ID");
+			return userDao.save(user);
 		}
 
 		User toUpdate = userDao.findById(user.getId()).orElseThrow(() -> new ResourceNotFoundException(user.getId()));

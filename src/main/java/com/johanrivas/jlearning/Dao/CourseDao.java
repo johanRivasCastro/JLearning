@@ -16,6 +16,8 @@ public interface CourseDao extends PagingAndSortingRepository<Course, Long> {
     @Query("select c from Course c where c.name like %?1% ")
     Page<Course> findByTerm(String term, PageRequest pageRequest);
 
+    Course findByName(String name);
+
     // @Query("SELECT * FROM COURSES c WHERE c.user_id =?1")
     // Course findCourseByUserId(String id);
 }

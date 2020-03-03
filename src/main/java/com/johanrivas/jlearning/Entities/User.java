@@ -29,15 +29,18 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import lombok.Data;
 
 @Data
 @Entity
 @Table(name = "users")
+@JsonInclude(Include.NON_NULL)
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -73,8 +76,6 @@ public class User implements Serializable {
 
 	@Column(columnDefinition = "boolean default false")
 	private Boolean enable;
-
-	// @JsonProperty(access = Access.WRITE_ONLY)
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference

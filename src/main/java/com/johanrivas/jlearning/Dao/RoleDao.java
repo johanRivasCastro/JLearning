@@ -6,4 +6,5 @@ import com.johanrivas.jlearning.Entities.Role;
 
 public interface RoleDao extends CrudRepository<Role, Long> {
 
+    public Role findByAuthority(String authority);
 }

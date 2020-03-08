@@ -47,17 +47,19 @@ public class UserServiceImpl implements UserService {
 			pagedResult = userDao.findByTerm(filterBy, PageRequest.of(pageNo, pageSize, Sort.by(sortBy)));
 		}
 
-		if (pagedResult.hasContent()) {
-			return new ResponseEntity<>(pagedResult, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
-		}
+		pagedResult.map(obj -> removeUserCourses(obj));
+
+		return new ResponseEntity<>(pagedResult, HttpStatus.OK);
+	}
+
+	public User removeUserCourses(User user) {
+		user.setCourses(null);
+		return user;
 	}
 
 	@Override
 	public User findById(Long id) {
 		return userDao.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
-
 	}
 
 	@Override

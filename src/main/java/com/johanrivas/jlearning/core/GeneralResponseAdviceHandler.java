@@ -2,6 +2,8 @@ package com.johanrivas.jlearning.core;
 
 import java.util.Map;
 
+import com.johanrivas.jlearning.Controllers.UploadsController;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
@@ -21,7 +23,7 @@ public class GeneralResponseAdviceHandler implements ResponseBodyAdvice<Object> 
 
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-        return true;
+        return returnType.getContainingClass() != UploadsController.class;
     }
 
     @Override

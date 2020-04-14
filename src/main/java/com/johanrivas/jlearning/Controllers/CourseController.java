@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.johanrivas.jlearning.Entities.Course;
+import com.johanrivas.jlearning.models.Entities.Course;
 import com.johanrivas.jlearning.Execptions.BindingResultException;
 import com.johanrivas.jlearning.Services.interfaces.CourseService;
 import com.johanrivas.jlearning.Services.interfaces.UploadFileService;

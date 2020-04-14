@@ -1,7 +1,7 @@
 package com.johanrivas.jlearning.Controllers;
 
-import com.johanrivas.jlearning.Entities.CourseContent;
-import com.johanrivas.jlearning.Entities.DocumentContent;
+import com.johanrivas.jlearning.models.Entities.CourseContent;
+import com.johanrivas.jlearning.models.Entities.DocumentContent;
 import com.johanrivas.jlearning.Services.interfaces.CourseContentService;
 import com.johanrivas.jlearning.Services.interfaces.DocumentContentService;
 import com.johanrivas.jlearning.Services.interfaces.UploadFileService;

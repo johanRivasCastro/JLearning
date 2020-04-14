@@ -1,4 +1,4 @@
-package com.johanrivas.jlearning.Entities;
+package com.johanrivas.jlearning.models.Entities;
 
 import java.util.Date;
 

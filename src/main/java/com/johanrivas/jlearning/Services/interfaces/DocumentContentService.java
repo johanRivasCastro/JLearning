@@ -1,6 +1,6 @@
 package com.johanrivas.jlearning.Services.interfaces;
 
-import com.johanrivas.jlearning.Entities.DocumentContent;
+import com.johanrivas.jlearning.models.Entities.DocumentContent;
 
 public interface DocumentContentService {
 

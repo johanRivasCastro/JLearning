@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.johanrivas.jlearning.Dao.DocumentContentDao;
-import com.johanrivas.jlearning.Entities.DocumentContent;
+import com.johanrivas.jlearning.models.Entities.DocumentContent;
 import com.johanrivas.jlearning.Execptions.ResourceNotFoundException;
 import com.johanrivas.jlearning.Services.interfaces.DocumentContentService;
 

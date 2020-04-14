@@ -1,4 +1,4 @@
-package com.johanrivas.jlearning.Entities;
+package com.johanrivas.jlearning.models.Entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,7 +25,7 @@ public class LectureContent {
 	@Length(min = 5, max = 10)
 	private String contentType;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "lecture_id")
-//	private Lecture lecture;
+	// @ManyToOne(fetch = FetchType.LAZY)
+	// @JoinColumn(name = "lecture_id")
+	// private Lecture lecture;
 }

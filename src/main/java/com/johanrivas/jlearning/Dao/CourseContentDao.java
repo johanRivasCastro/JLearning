@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.johanrivas.jlearning.Entities.CourseContent;
+import com.johanrivas.jlearning.models.Entities.CourseContent;
 
 @Repository
 public interface CourseContentDao extends CrudRepository<CourseContent, Long> {

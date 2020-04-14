@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,7 +20,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.johanrivas.jlearning.Entities.User;
+import com.johanrivas.jlearning.models.Entities.User;
+import com.johanrivas.jlearning.Services.interfaces.UserService;
 import com.johanrivas.jlearning.auth.service.JWTService;
 import com.johanrivas.jlearning.auth.service.JWTServiceImpl;
 
@@ -27,6 +29,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	private AuthenticationManager authenticationManager;
 	private JWTService jwtService;
+
+	@Autowired
+	private UserService userService;
 
 	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTService jwtService) {
 		this.authenticationManager = authenticationManager;
@@ -112,5 +117,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.setStatus(401);
 		response.setContentType("application/json");
 	}
+
+	// public User formatLoggedUser (Authentication auth) {
+	// String username = ((org.springframework.security.core.userdetails.User)
+	// auth.getPrincipal()).getUsername();
+
+	// User user = userService.findByEmail(username);
+	// user.setCourses(null);
+	// user.setRoles(null);
+	// }
 
 }

@@ -1,4 +1,4 @@
-package com.johanrivas.jlearning.Entities;
+package com.johanrivas.jlearning.models.Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -77,8 +77,6 @@ public class User implements Serializable {
 	@Column(columnDefinition = "boolean default false")
 	private Boolean enable;
 
-	// @JsonProperty(access = Access.WRITE_ONLY)
-
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private List<Course> courses;
@@ -91,7 +89,7 @@ public class User implements Serializable {
 	@Length(max = 150, message = "the img url can't have more than 150 characteres")
 	private String photo;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.REFRESH })
 	@JoinTable(name = "user_role", uniqueConstraints = { @UniqueConstraint(columnNames = { "user_id",
 			"role_id" }) }, joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;
@@ -213,6 +211,13 @@ public class User implements Serializable {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", lastname=" + lastname + ", identification=" + identification
+				+ ", email=" + email + ", password=" + password + ", direction=" + direction + ", enable=" + enable
+				+ ", created=" + created + ", photo=" + photo + ", roles=" + roles + ", LastLogin=" + LastLogin + "]";
 	}
 
 }

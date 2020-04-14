@@ -2,7 +2,7 @@ package com.johanrivas.jlearning.Services.interfaces;
 
 import java.util.List;
 
-import com.johanrivas.jlearning.Entities.CourseContent;
+import com.johanrivas.jlearning.models.Entities.CourseContent;
 
 public interface CourseContentService {
 

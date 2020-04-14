@@ -1,6 +1,7 @@
 package com.johanrivas.jlearning.auth.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -13,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Base64Utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.johanrivas.jlearning.Entities.User;
+import com.johanrivas.jlearning.models.Entities.Role;
+import com.johanrivas.jlearning.models.Entities.User;
+import com.johanrivas.jlearning.Services.interfaces.RoleService;
 import com.johanrivas.jlearning.Services.interfaces.UserService;
 import com.johanrivas.jlearning.auth.SimpleGrantedAuthorityMixin;
 
@@ -33,21 +36,23 @@ public class JWTServiceImpl implements JWTService {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private RoleService roleService;
+
 	@Override
 	public String create(Authentication auth) throws IOException {
 
 		String username = ((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername();
 
+		// ArrayList<Role> roles = (ArrayList<Role>) roleService.findAll();
 		Collection<? extends GrantedAuthority> roles = auth.getAuthorities();
 
 		Claims claims = Jwts.claims();
 		User user = userService.findByEmail(username);
-		User tokenUser = new User();
-		tokenUser.setName(user.getName());
-		tokenUser.setLastname(user.getLastname());
-		tokenUser.setId(user.getId());
+		user.setCourses(null);
+		// user.setRoles(null);
 		claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
-		claims.put("user", new ObjectMapper().writeValueAsString(tokenUser));
+		claims.put("user", new ObjectMapper().writeValueAsString(user));
 
 		String token = Jwts.builder().setClaims(claims).setSubject(username)
 				.signWith(SignatureAlgorithm.HS512, SECRET.getBytes()).setIssuedAt(new Date())
@@ -58,16 +63,12 @@ public class JWTServiceImpl implements JWTService {
 
 	@Override
 	public boolean validate(String token) {
-
 		try {
-
 			getClaims(token);
-
 			return true;
 		} catch (JwtException | IllegalArgumentException e) {
 			return false;
 		}
-
 	}
 
 	@Override
@@ -78,18 +79,15 @@ public class JWTServiceImpl implements JWTService {
 
 	@Override
 	public String getUsername(String token) {
-		// TODO Auto-generated method stub
 		return getClaims(token).getSubject();
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getRoles(String token) throws IOException {
 		Object roles = getClaims(token).get("authorities");
-
 		Collection<? extends GrantedAuthority> authorities = Arrays
 				.asList(new ObjectMapper().addMixIn(SimpleGrantedAuthority.class, SimpleGrantedAuthorityMixin.class)
 						.readValue(roles.toString().getBytes(), SimpleGrantedAuthority[].class));
-
 		return authorities;
 	}
 

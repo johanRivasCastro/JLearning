@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.johanrivas.jlearning.Entities.VideoContent;
+import com.johanrivas.jlearning.models.Entities.VideoContent;
 import com.johanrivas.jlearning.Execptions.BindingResultException;
 import com.johanrivas.jlearning.Services.interfaces.VideoContentService;
 

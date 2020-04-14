@@ -2,7 +2,9 @@ package com.johanrivas.jlearning.Services.interfaces;
 
 import org.springframework.http.ResponseEntity;
 
-import com.johanrivas.jlearning.Entities.User;
+import com.johanrivas.jlearning.models.Entities.User;
+import com.johanrivas.jlearning.models.dtos.PatchUserDTO;
+import com.johanrivas.jlearning.models.dtos.PostUserDto;
 
 public interface UserService {
 
@@ -15,4 +17,6 @@ public interface UserService {
 	void delete(Long id);
 
 	User findByEmail(String email);
+
+	User patch(PatchUserDTO userDto, Long id);
 }

@@ -2,7 +2,7 @@ package com.johanrivas.jlearning.Services.interfaces;
 
 import java.util.List;
 
-import com.johanrivas.jlearning.Entities.Course;
+import com.johanrivas.jlearning.models.Entities.Course;
 
 import org.springframework.http.ResponseEntity;
 

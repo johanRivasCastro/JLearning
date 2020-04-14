@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.johanrivas.jlearning.Dao.VideoContentDao;
-import com.johanrivas.jlearning.Entities.VideoContent;
+import com.johanrivas.jlearning.models.Entities.VideoContent;
 import com.johanrivas.jlearning.Execptions.ResourceNotFoundException;
 import com.johanrivas.jlearning.Services.interfaces.VideoContentService;
 

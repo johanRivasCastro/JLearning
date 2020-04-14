@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.johanrivas.jlearning.Dao.UserDao;
-import com.johanrivas.jlearning.Entities.Role;
-import com.johanrivas.jlearning.Entities.User;
+import com.johanrivas.jlearning.models.Entities.Role;
+import com.johanrivas.jlearning.models.Entities.User;
 
 @Service
 public class JPAUserDetailsService implements UserDetailsService {

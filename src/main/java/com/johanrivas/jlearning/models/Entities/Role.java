@@ -1,5 +1,6 @@
-package com.johanrivas.jlearning.Entities;
+package com.johanrivas.jlearning.models.Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,12 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name = "authorities")
-public class Role {
+public class Role implements Serializable {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,5 +64,6 @@ public class Role {
 
 	public Role() {
 		users = new ArrayList<User>();
+
 	}
 }

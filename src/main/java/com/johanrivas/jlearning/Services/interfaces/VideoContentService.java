@@ -1,6 +1,6 @@
 package com.johanrivas.jlearning.Services.interfaces;
 
-import com.johanrivas.jlearning.Entities.VideoContent;
+import com.johanrivas.jlearning.models.Entities.VideoContent;
 
 public interface VideoContentService {
 	VideoContent findById(Long id);
